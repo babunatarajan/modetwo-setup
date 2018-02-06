@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DJANGODIR=/srv/mode/DigitalMediaPlatform/mobilemode/modetwo # Django project directory
+DJANGO_SETTINGS_MODULE=modetwo.settings # which settings file should Django use
+
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+export HOMEDIR=/home/mode/
+cd $HOMEDIR
+source .virtualenvs/modetwoenv/bin/activate
+
+cd $DJANGODIR
+
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec python manage.py runworker
+
